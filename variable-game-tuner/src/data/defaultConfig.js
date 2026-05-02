@@ -1,5 +1,5 @@
 export const defaultConfig = {
-  playerName: "Ada",
+  playerName: "Ronan",
   playerIcon: "@",
   playerHealth: 3,
   playerSpeed: 4.0,

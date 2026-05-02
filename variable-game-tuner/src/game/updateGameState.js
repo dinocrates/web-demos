@@ -1,4 +1,4 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH, HUD_HEIGHT, TARGET_FRAME_MS } from "./constants";
+import { ROOM_BOUNDS, TARGET_FRAME_MS } from "./constants";
 import { circleIntersectsRect, clamp, distance, getAttackHitbox } from "./collision";
 
 export function updateGameState(state, config, keys, attackRequested, deltaMs, now) {
@@ -21,6 +21,8 @@ export function updateGameState(state, config, keys, attackRequested, deltaMs, n
   if (keys.has("ArrowUp") || keys.has("w") || keys.has("W")) dy -= 1;
   if (keys.has("ArrowDown") || keys.has("s") || keys.has("S")) dy += 1;
 
+  next.player.moving = dx !== 0 || dy !== 0;
+
   if (dx !== 0 || dy !== 0) {
     if (Math.abs(dx) > Math.abs(dy)) {
       next.player.facing = dx > 0 ? "right" : "left";
@@ -33,20 +35,20 @@ export function updateGameState(state, config, keys, attackRequested, deltaMs, n
     next.player.y += (dy / magnitude) * config.playerSpeed * deltaScale;
   }
 
-  next.player.x = clamp(next.player.x, next.player.radius, CANVAS_WIDTH - next.player.radius);
-  next.player.y = clamp(next.player.y, HUD_HEIGHT + next.player.radius, CANVAS_HEIGHT - next.player.radius);
+  next.player.x = clamp(next.player.x, ROOM_BOUNDS.left + next.player.radius, ROOM_BOUNDS.right - next.player.radius);
+  next.player.y = clamp(next.player.y, ROOM_BOUNDS.top + next.player.radius, ROOM_BOUNDS.bottom - next.player.radius);
 
   next.enemies.forEach((enemy) => {
     enemy.x += enemy.vx * deltaScale;
     enemy.y += enemy.vy * deltaScale;
 
-    if (enemy.x < enemy.radius || enemy.x > CANVAS_WIDTH - enemy.radius) {
+    if (enemy.x < ROOM_BOUNDS.left + enemy.radius || enemy.x > ROOM_BOUNDS.right - enemy.radius) {
       enemy.vx *= -1;
-      enemy.x = clamp(enemy.x, enemy.radius, CANVAS_WIDTH - enemy.radius);
+      enemy.x = clamp(enemy.x, ROOM_BOUNDS.left + enemy.radius, ROOM_BOUNDS.right - enemy.radius);
     }
-    if (enemy.y < HUD_HEIGHT + enemy.radius || enemy.y > CANVAS_HEIGHT - enemy.radius) {
+    if (enemy.y < ROOM_BOUNDS.top + enemy.radius || enemy.y > ROOM_BOUNDS.bottom - enemy.radius) {
       enemy.vy *= -1;
-      enemy.y = clamp(enemy.y, HUD_HEIGHT + enemy.radius, CANVAS_HEIGHT - enemy.radius);
+      enemy.y = clamp(enemy.y, ROOM_BOUNDS.top + enemy.radius, ROOM_BOUNDS.bottom - enemy.radius);
     }
   });
 
