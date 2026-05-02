@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Demos</title>
+    <style>
+      :root {
+        color: #111827;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background:
+          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(135deg, #6fb7c6 0%, #c8d7c3 46%, #d8c28e 100%);
+        background-size: 32px 32px, 32px 32px, auto;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .desktop {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .window,
+      .demo-card,
+      dialog {
+        border: 2px solid #111827;
+        border-radius: 6px;
+        background: #d7d7ce;
+        box-shadow:
+          inset 2px 2px 0 #ffffff,
+          inset -2px -2px 0 #8f9189,
+          6px 6px 0 rgba(17, 24, 39, 0.35);
+      }
+
+      .titlebar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 42px;
+        border-bottom: 2px solid #111827;
+        border-radius: 4px 4px 0 0;
+        background: linear-gradient(90deg, #1f3d63, #25636f);
+        padding: 8px 10px;
+        color: #f8fafc;
+      }
+
+      .titlebar h1,
+      .titlebar h2 {
+        margin: 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        letter-spacing: 0;
+      }
+
+      .window-body {
+        padding: 18px;
+      }
+
+      .intro {
+        display: grid;
+        gap: 12px;
+      }
+
+      .intro p {
+        max-width: 760px;
+        margin: 0;
+        color: #253044;
+        font-size: 1rem;
+        font-weight: 650;
+        line-height: 1.65;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .demo-card {
+        display: flex;
+        min-height: 100%;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .card-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: #1f3d63;
+        font-size: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .card-body h3 {
+        margin: 0;
+        font-size: 1.45rem;
+      }
+
+      .card-body p {
+        margin: 0;
+        color: #253044;
+        line-height: 1.55;
+      }
+
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .tag-list li {
+        border: 2px solid #111827;
+        border-radius: 4px;
+        background: #fff9df;
+        padding: 4px 8px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .button {
+        min-height: 36px;
+        border: 2px solid #111827;
+        border-radius: 4px;
+        background: #e8e5d8;
+        padding: 8px 12px;
+        color: #111827;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 900;
+        line-height: 1.1;
+        text-decoration: none;
+        box-shadow:
+          inset 2px 2px 0 #ffffff,
+          inset -2px -2px 0 #7b7d76,
+          2px 2px 0 rgba(17, 24, 39, 0.28);
+      }
+
+      .button:hover {
+        background: #f5f2df;
+      }
+
+      .button.primary {
+        background: #74d3b2;
+      }
+
+      .button.primary:hover {
+        background: #93e2c8;
+      }
+
+      dialog {
+        width: min(720px, calc(100% - 32px));
+        padding: 0;
+      }
+
+      dialog::backdrop {
+        background: rgba(17, 24, 39, 0.55);
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 130px;
+        border: 2px solid #111827;
+        border-radius: 4px;
+        background: #050505;
+        color: #d1fae5;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        padding: 12px;
+        resize: vertical;
+      }
+
+      .modal-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="desktop">
+      <section class="window">
+        <div class="titlebar">
+          <h1>Web Demos</h1>
+        </div>
+        <div class="window-body intro">
+          <p>
+            A small gallery of classroom-friendly web experiments. Each demo is built to be opened directly,
+            linked from a lesson page, or embedded in Canvas when that helps students stay in one place.
+          </p>
+        </div>
+      </section>
+
+      <section class="demo-grid" aria-label="Available demos">
+        <article class="demo-card">
+          <div class="titlebar">
+            <h2>Variable Game Tuner</h2>
+          </div>
+          <div class="card-body">
+            <p class="eyebrow">Intro Programming</p>
+            <h3>Dungeon Dash: Variables Control the Game</h3>
+            <p>
+              Students edit beginner-friendly C++ or Java-style variable declarations, apply the values,
+              and immediately see those variables change a playable canvas mini-game.
+            </p>
+            <ul class="tag-list" aria-label="Demo topics">
+              <li>Variables</li>
+              <li>C++</li>
+              <li>Java</li>
+              <li>Canvas Game</li>
+            </ul>
+            <div class="button-row">
+              <a class="button primary" href="./variable-game-tuner/">Open Demo</a>
+              <button class="button" type="button" id="show-embed">Canvas Embed Code</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <dialog id="embed-dialog" aria-labelledby="embed-title">
+      <div class="titlebar">
+        <h2 id="embed-title">Canvas Embed Code</h2>
+      </div>
+      <div class="window-body">
+        <p>
+          Paste this iframe into a Canvas page using the HTML editor. The URL is generated from the current page location.
+        </p>
+        <textarea id="embed-code" readonly></textarea>
+        <div class="modal-actions">
+          <button class="button primary" type="button" id="copy-embed">Copy Code</button>
+          <button class="button" type="button" id="close-embed">Close</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script>
+      const dialog = document.querySelector("#embed-dialog");
+      const embedCode = document.querySelector("#embed-code");
+      const showEmbed = document.querySelector("#show-embed");
+      const closeEmbed = document.querySelector("#close-embed");
+      const copyEmbed = document.querySelector("#copy-embed");
+
+      function demoUrl() {
+        return new URL("./variable-game-tuner/", window.location.href).toString();
+      }
+
+      function iframeCode() {
+        return `<iframe src="${demoUrl()}" title="Variable Game Tuner" width="100%" height="780" loading="lazy" style="border:0; max-width: 1200px;"></iframe>`;
+      }
+
+      showEmbed.addEventListener("click", () => {
+        embedCode.value = iframeCode();
+        dialog.showModal();
+        embedCode.focus();
+        embedCode.select();
+      });
+
+      closeEmbed.addEventListener("click", () => dialog.close());
+
+      copyEmbed.addEventListener("click", async () => {
+        embedCode.select();
+        await navigator.clipboard.writeText(embedCode.value);
+        copyEmbed.textContent = "Copied";
+        window.setTimeout(() => {
+          copyEmbed.textContent = "Copy Code";
+        }, 1200);
+      });
+    </script>
+  </body>
+</html>
