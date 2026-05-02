@@ -110,7 +110,7 @@ export function HighlightedCodeEditor({ code, language, onCodeChange }) {
   const highlightedCode = useMemo(() => highlightCode(code), [code]);
 
   return (
-    <div className="relative h-[520px] overflow-hidden rounded-2xl border border-slate-700 bg-black">
+    <div className="retro-editor-frame relative h-[520px] overflow-hidden">
       <pre
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 m-0 min-h-full whitespace-pre p-4 font-mono text-sm leading-6"

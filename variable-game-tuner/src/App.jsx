@@ -159,8 +159,8 @@ export default function VariableGameTunerPrototype() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-6">
-      <div className="mx-auto max-w-7xl space-y-4">
+    <div className="app-shell">
+      <div className="retro-desktop space-y-4">
         <AppHeader language={language} languages={typeMap} onLanguageChange={toggleLanguage} />
 
         <main className="grid gap-4 lg:grid-cols-[1fr_1.1fr]">

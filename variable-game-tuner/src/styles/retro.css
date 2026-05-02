@@ -1,0 +1,225 @@
+.app-shell {
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(135deg, #6fb7c6 0%, #c8d7c3 46%, #d8c28e 100%);
+  background-size: 32px 32px, 32px 32px, auto;
+  color: #111827;
+  padding: 16px;
+}
+
+.retro-desktop {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.retro-app-header,
+.retro-window {
+  border: 2px solid #111827;
+  border-radius: 6px;
+  background: #d7d7ce;
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #8f9189,
+    6px 6px 0 rgba(17, 24, 39, 0.35);
+}
+
+.retro-app-header {
+  padding: 10px;
+}
+
+.retro-titlebar {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 2px solid #111827;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(90deg, #1f3d63, #25636f);
+  padding: 8px 10px;
+  color: #f8fafc;
+}
+
+.retro-window-body {
+  padding: 12px;
+}
+
+.retro-window-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.retro-window-subtitle {
+  margin-top: 2px;
+  color: #d7f3f1;
+  font-size: 12px;
+}
+
+.retro-window-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.retro-button {
+  min-height: 34px;
+  border: 2px solid #111827;
+  border-radius: 4px;
+  background: #e8e5d8;
+  padding: 6px 12px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.1;
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #7b7d76,
+    2px 2px 0 rgba(17, 24, 39, 0.28);
+}
+
+.retro-button:hover {
+  background: #f5f2df;
+}
+
+.retro-button:active {
+  transform: translate(1px, 1px);
+  box-shadow:
+    inset -2px -2px 0 #ffffff,
+    inset 2px 2px 0 #7b7d76;
+}
+
+.retro-button--primary {
+  background: #74d3b2;
+}
+
+.retro-button--primary:hover {
+  background: #93e2c8;
+}
+
+.retro-button--secondary {
+  background: #b9d8f0;
+}
+
+.retro-button--secondary:hover {
+  background: #d1e8f8;
+}
+
+.retro-button--active {
+  background: #f5d66b;
+  box-shadow:
+    inset -2px -2px 0 #fff2ab,
+    inset 2px 2px 0 #9a7b21,
+    2px 2px 0 rgba(17, 24, 39, 0.28);
+}
+
+.retro-segmented-control {
+  border: 2px solid #111827;
+  border-radius: 6px;
+  background: #c1c5bc;
+  padding: 8px;
+  box-shadow:
+    inset 2px 2px 0 #8d9189,
+    inset -2px -2px 0 #ffffff;
+}
+
+.retro-label {
+  margin-bottom: 6px;
+  color: #253044;
+  font-size: 11px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.retro-editor-frame,
+.retro-canvas-frame,
+.retro-inset-panel,
+.retro-list-item {
+  border: 2px solid #111827;
+  border-radius: 4px;
+  box-shadow:
+    inset 2px 2px 0 #7c8078,
+    inset -2px -2px 0 #ffffff;
+}
+
+.retro-editor-frame {
+  background: #050505;
+}
+
+.retro-canvas-frame {
+  overflow: hidden;
+  background: #111827;
+  padding: 8px;
+}
+
+.retro-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid #020617;
+  border-radius: 3px;
+}
+
+.retro-inset-panel {
+  background: #f5f0da;
+  padding: 12px;
+}
+
+.retro-list-item {
+  background: #fff9df;
+  padding: 10px;
+}
+
+.retro-watch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 2px solid #111827;
+  border-radius: 4px;
+  background: #111827;
+  padding: 8px 10px;
+  color: #f8fafc;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+}
+
+.retro-status-text {
+  color: #253044;
+  font-size: 14px;
+}
+
+.retro-error-box {
+  border: 2px solid #7f1d1d;
+  border-radius: 4px;
+  background: #fee2e2;
+  padding: 10px;
+  color: #450a0a;
+}
+
+.retro-note-box {
+  border: 2px solid #92400e;
+  border-radius: 4px;
+  background: #fef3c7;
+  padding: 10px;
+  color: #451a03;
+}
+
+.code-editor-input::selection {
+  background: rgba(116, 211, 178, 0.35);
+  color: transparent;
+}
+
+@media (min-width: 768px) {
+  .app-shell {
+    padding: 24px;
+  }
+}

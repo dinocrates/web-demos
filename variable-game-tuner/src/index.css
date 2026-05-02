@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./styles/retro.css";
 
 * {
   box-sizing: border-box;
@@ -12,9 +13,4 @@ body,
 
 body {
   margin: 0;
-}
-
-.code-editor-input::selection {
-  background: rgba(34, 211, 238, 0.28);
-  color: transparent;
 }
