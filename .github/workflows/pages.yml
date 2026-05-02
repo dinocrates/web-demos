@@ -29,6 +29,9 @@ jobs:
           cache: npm
           cache-dependency-path: variable-game-tuner/package-lock.json
 
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Install Variable Game Tuner dependencies
         working-directory: variable-game-tuner
         run: npm ci
@@ -42,6 +45,7 @@ jobs:
           mkdir -p _site/variable-game-tuner
           cp index.html _site/index.html
           cp -R variable-game-tuner/dist/. _site/variable-game-tuner/
+          touch _site/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
