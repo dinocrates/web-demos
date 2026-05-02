@@ -1,0 +1,16 @@
+export const variableRules = {
+  playerName: { type: "string", min: null, max: null },
+  playerIcon: { type: "char", min: null, max: null },
+  playerHealth: { type: "int", min: 1, max: 20 },
+  playerSpeed: { type: "double", min: 1, max: 12 },
+  coinValue: { type: "int", min: 1, max: 1000 },
+  coinCount: { type: "int", min: 1, max: 30 },
+  enemyCount: { type: "int", min: 0, max: 20 },
+  enemySpeed: { type: "double", min: 0, max: 8 },
+  enemyHealth: { type: "int", min: 1, max: 10 },
+  swordEnabled: { type: "bool", min: null, max: null },
+  swordDamage: { type: "int", min: 1, max: 10 },
+  swordRange: { type: "double", min: 15, max: 95 },
+  attackCooldown: { type: "double", min: 0.1, max: 3.0 },
+  shieldEnabled: { type: "bool", min: null, max: null },
+};

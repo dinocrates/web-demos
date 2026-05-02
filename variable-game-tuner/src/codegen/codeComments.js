@@ -1,0 +1,16 @@
+export const variableComments = {
+  playerName: "The name shown in the game HUD while you play.",
+  playerIcon: "The single character drawn inside the player circle.",
+  playerHealth: "How many enemy hits the player can survive before losing.",
+  playerSpeed: "How many pixels the player moves each frame; higher feels faster.",
+  coinValue: "How many points each collected coin adds to the score.",
+  coinCount: "How many coins appear when a new game starts.",
+  enemyCount: "How many enemies are spawned to chase and block the player.",
+  enemySpeed: "How quickly enemies drift around the room.",
+  enemyHealth: "How many sword hits each enemy can take before disappearing.",
+  swordEnabled: "Set to false to turn off attacking; true lets Space or J swing the sword.",
+  swordDamage: "How much health one sword swing removes from an enemy it touches.",
+  swordRange: "How far the sword reaches from the player in the facing direction.",
+  attackCooldown: "How many seconds the player must wait between sword swings.",
+  shieldEnabled: "Set to true to block the first enemy hit in each new game.",
+};

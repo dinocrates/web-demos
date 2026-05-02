@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.code-editor-input::selection {
+  background: rgba(34, 211, 238, 0.28);
+  color: transparent;
+}

@@ -1,0 +1,16 @@
+export const defaultConfig = {
+  playerName: "Ada",
+  playerIcon: "@",
+  playerHealth: 3,
+  playerSpeed: 4.0,
+  coinValue: 10,
+  coinCount: 8,
+  enemyCount: 4,
+  enemySpeed: 1.5,
+  enemyHealth: 1,
+  swordEnabled: true,
+  swordDamage: 1,
+  swordRange: 42.0,
+  attackCooldown: 0.5,
+  shieldEnabled: false,
+};
