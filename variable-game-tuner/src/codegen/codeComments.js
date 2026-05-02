@@ -5,6 +5,7 @@ export const variableComments = {
   playerSpeed: "How many pixels the player moves each frame; higher feels faster.",
   coinValue: "How many points each collected coin adds to the score.",
   coinCount: "How many coins appear when a new game starts.",
+  winCondition: "Choose how to win: 1 = collect all coins, 2 = defeat all enemies, 3 = do both.",
   enemyCount: "How many enemies are spawned to chase and block the player.",
   enemySpeed: "How quickly enemies drift around the room.",
   enemyHealth: "How many sword hits each enemy can take before disappearing.",

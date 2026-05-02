@@ -44,6 +44,7 @@ export function createInitialGameState(config) {
     },
     enemies: createEnemies(config.enemyCount, config.enemySpeed, config.enemyHealth),
     coins: createCoins(config.coinCount),
+    totalCoins: config.coinCount,
     score: 0,
     elapsed: 0,
     attack: {

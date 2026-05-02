@@ -5,6 +5,7 @@ export const defaultConfig = {
   playerSpeed: 4.0,
   coinValue: 10,
   coinCount: 8,
+  winCondition: 1,
   enemyCount: 4,
   enemySpeed: 1.5,
   enemyHealth: 1,

@@ -1,5 +1,6 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH, HUD_HEIGHT } from "../game/constants";
 import { getAttackHitbox } from "../game/collision";
+import { getWinMessage } from "./rendererUtils";
 
 export function renderShapeGame(ctx, state, config, now = performance.now()) {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -103,10 +104,12 @@ export function renderShapeGame(ctx, state, config, now = performance.now()) {
     ctx.fillStyle = "#f8fafc";
     ctx.textAlign = "center";
     ctx.font = "bold 30px ui-sans-serif, system-ui, sans-serif";
-    const title = state.win ? "You collected every coin!" : state.gameOver ? "Game Over" : "Paused";
+    const winMessage = state.win ? getWinMessage(config) : null;
+    const title = winMessage?.title ?? (state.gameOver ? "Game Over" : "Paused");
+    const subtitle = winMessage?.subtitle ?? "Change variables, apply, and test a new version.";
     ctx.fillText(title, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 18);
     ctx.font = "16px ui-sans-serif, system-ui, sans-serif";
-    ctx.fillText("Change variables, apply, and test a new version.", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 16);
+    ctx.fillText(subtitle, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 16);
     ctx.textAlign = "left";
   }
 }

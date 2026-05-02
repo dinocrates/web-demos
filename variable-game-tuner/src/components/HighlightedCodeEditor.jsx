@@ -10,6 +10,7 @@ const variableNames = new Set([
   "playerSpeed",
   "coinValue",
   "coinCount",
+  "winCondition",
   "enemyCount",
   "enemySpeed",
   "enemyHealth",

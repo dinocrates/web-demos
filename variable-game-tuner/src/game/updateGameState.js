@@ -73,7 +73,13 @@ export function updateGameState(state, config, keys, attackRequested, deltaMs, n
   });
   next.coins = remainingCoins;
 
-  if (next.coins.length === 0) {
+  const coinsComplete = next.coins.length === 0;
+  const enemiesComplete = next.enemies.length === 0;
+  const winsByCoins = config.winCondition === 1 && coinsComplete;
+  const winsByEnemies = config.winCondition === 2 && enemiesComplete;
+  const winsByBoth = config.winCondition === 3 && coinsComplete && enemiesComplete;
+
+  if (winsByCoins || winsByEnemies || winsByBoth) {
     next.win = true;
     next.running = false;
   }

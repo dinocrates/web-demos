@@ -1,6 +1,7 @@
 import { renderShapeGame } from "./shapeRenderer";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, HUD_HEIGHT } from "../game/constants";
 import { getAttackHitbox } from "../game/collision";
+import { getWinMessage } from "./rendererUtils";
 import { spriteManifest } from "./spriteManifest";
 
 const spriteCache = {
@@ -197,7 +198,7 @@ function drawPlayer(ctx, state, config, now) {
   ctx.fillText(config.playerIcon, state.player.x, state.player.y - 2);
 }
 
-function drawOverlay(ctx, state) {
+function drawOverlay(ctx, state, config) {
   if (!state.gameOver && !state.win && state.running) return;
 
   ctx.fillStyle = "rgba(15, 23, 42, 0.78)";
@@ -205,10 +206,12 @@ function drawOverlay(ctx, state) {
   ctx.fillStyle = "#f8fafc";
   ctx.textAlign = "center";
   ctx.font = "bold 30px ui-sans-serif, system-ui, sans-serif";
-  const title = state.win ? "You collected every coin!" : state.gameOver ? "Game Over" : "Paused";
+  const winMessage = state.win ? getWinMessage(config) : null;
+  const title = winMessage?.title ?? (state.gameOver ? "Game Over" : "Paused");
+  const subtitle = winMessage?.subtitle ?? "Change variables, apply, and test a new version.";
   ctx.fillText(title, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 18);
   ctx.font = "16px ui-sans-serif, system-ui, sans-serif";
-  ctx.fillText("Change variables, apply, and test a new version.", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 16);
+  ctx.fillText(subtitle, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 16);
   ctx.textAlign = "left";
 }
 
@@ -228,7 +231,7 @@ export function renderSpriteGame(ctx, state, config, now) {
     drawSword(ctx, state, config, now);
     state.enemies.forEach((enemy) => drawEnemy(ctx, enemy, config, now));
     drawPlayer(ctx, state, config, now);
-    drawOverlay(ctx, state);
+    drawOverlay(ctx, state, config);
   } catch {
     spriteCache.status = "failed";
     renderShapeGame(ctx, state, config, now);

@@ -4,7 +4,7 @@ import { languageDefinitions } from "../data/languageDefinitions";
 const variableGroups = [
   ["playerName", "playerIcon"],
   ["playerHealth", "playerSpeed"],
-  ["coinValue", "coinCount"],
+  ["coinValue", "coinCount", "winCondition"],
   ["enemyCount", "enemySpeed", "enemyHealth"],
   ["swordEnabled", "swordDamage", "swordRange", "attackCooldown"],
   ["shieldEnabled"],
@@ -17,6 +17,7 @@ const variableTypes = {
   playerSpeed: "double",
   coinValue: "int",
   coinCount: "int",
+  winCondition: "int",
   enemyCount: "int",
   enemySpeed: "double",
   enemyHealth: "int",
