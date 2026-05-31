@@ -1,0 +1,521 @@
+:root {
+  color: #172033;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #bfc8c5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(135deg, #86b6bc 0%, #d2d0b4 50%, #c58b77 100%);
+  background-size: 28px 28px, 28px 28px, auto;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1440px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 20px 0 44px;
+}
+
+.hero,
+.window {
+  border: 2px solid #111827;
+  border-radius: 6px;
+  background: #d7d7ce;
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #8f9189,
+    6px 6px 0 rgba(17, 24, 39, 0.28);
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+  padding: 18px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 8px 0 0;
+  color: #263248;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.eyebrow,
+.field-label {
+  margin: 0;
+  color: #265f70;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(330px, 0.9fr) minmax(460px, 1.35fr);
+  gap: 16px;
+}
+
+.left-stack,
+.right-stack,
+.split {
+  display: grid;
+  gap: 16px;
+}
+
+.split {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.titlebar {
+  min-height: 44px;
+  border-bottom: 2px solid #111827;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(90deg, #243b59, #27606b);
+  padding: 8px 10px;
+  color: #f8fafc;
+}
+
+.titlebar h2 {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+
+.titlebar p {
+  margin: 2px 0 0;
+  color: #dbeafe;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.window-body {
+  padding: 14px;
+}
+
+.snes-status-card {
+  container-type: inline-size;
+  border: 4px solid #111827;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%) 0 0 / 8px 8px,
+    #172554;
+  box-shadow:
+    inset 0 0 0 3px #e0f2fe,
+    inset 0 0 0 7px #1e3a8a,
+    4px 4px 0 rgba(17, 24, 39, 0.35);
+  color: #f8fafc;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.snes-nameplate,
+.snes-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 3px solid #e0f2fe;
+  background: #06132d;
+  padding: 8px 10px;
+  color: #f8fafc;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.snes-nameplate span {
+  overflow-wrap: anywhere;
+  font-size: clamp(1rem, 5cqw, 1.35rem);
+  line-height: 1;
+}
+
+.nameplate-class {
+  color: var(--accent);
+  font-size: clamp(0.86rem, 4cqw, 1.05rem) !important;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.snes-nameplate strong {
+  color: #facc15;
+  white-space: nowrap;
+}
+
+.snes-card-body {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.85fr) minmax(0, 1fr);
+  gap: 12px;
+  margin: 12px 0;
+  align-items: start;
+}
+
+.sprite-column {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  justify-items: center;
+}
+
+.sprite-frame {
+  display: flex;
+  width: min(256px, 100%);
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #e0f2fe;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 50% 36%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 58%),
+    #0f172a;
+  background-size: 10px 10px, 10px 10px, auto, auto;
+  box-shadow: inset 0 0 0 3px #111827;
+}
+
+.sprite-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.character-info {
+  display: grid;
+  min-width: 0;
+  gap: 10px;
+}
+
+.hp-row,
+.snes-stat-grid > div {
+  border: 3px solid #e0f2fe;
+  background: #06132d;
+  box-shadow: inset 0 0 0 2px #1e3a8a;
+}
+
+.gender-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(40px, 1fr));
+  gap: 8px;
+  width: min(100%, 136px);
+}
+
+.symbol-button {
+  min-height: 34px;
+  border: 3px solid #e0f2fe;
+  background: #06132d;
+  color: #bfdbfe;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: inset 0 0 0 2px #1e3a8a;
+}
+
+.symbol-button:hover,
+.symbol-button.active {
+  background: #facc15;
+  color: #06132d;
+}
+
+.menu-label {
+  color: #7dd3fc;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.hp-row {
+  display: grid;
+  grid-template-columns: auto minmax(58px, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 10px;
+}
+
+.hp-row strong {
+  color: #fef3c7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.72rem, 3.2cqw, 0.9rem);
+  white-space: nowrap;
+}
+
+.health-shell {
+  height: 18px;
+  overflow: hidden;
+  border: 2px solid #e0f2fe;
+  background: #111827;
+  box-shadow: inset 0 0 0 2px #020617;
+}
+
+.health-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ef4444 0%, #facc15 42%, #22c55e 100%);
+  transition: width 180ms steps(8);
+}
+
+.snes-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.snes-stat-grid > div {
+  display: grid;
+  gap: 4px;
+  min-height: 64px;
+  padding: 8px 10px;
+}
+
+.snes-stat-grid strong {
+  overflow-wrap: anywhere;
+  color: #f8fafc;
+  font-size: 0.92rem;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.snes-footer {
+  color: #bfdbfe;
+  font-size: 0.75rem;
+}
+
+.accessor-output,
+.status-output,
+.trace-list {
+  border: 2px solid #111827;
+  border-radius: 4px;
+  background: #f8f3dc;
+  padding: 10px;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+label {
+  display: grid;
+  gap: 5px;
+  color: #263248;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+input,
+select {
+  min-height: 38px;
+  width: 100%;
+  border: 2px solid #111827;
+  border-radius: 4px;
+  background: #fffdf2;
+  padding: 7px 9px;
+  color: #111827;
+  font-weight: 800;
+}
+
+.button,
+.tab {
+  min-height: 38px;
+  border: 2px solid #111827;
+  border-radius: 4px;
+  background: #e8e5d8;
+  color: #111827;
+  cursor: pointer;
+  font-weight: 950;
+  line-height: 1.1;
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #7b7d76,
+    2px 2px 0 rgba(17, 24, 39, 0.22);
+}
+
+.button {
+  padding: 8px 10px;
+}
+
+.button:hover,
+.tab:hover {
+  background: #f5f2df;
+}
+
+.button.primary {
+  background: #74d3b2;
+}
+
+.button-pair,
+.accessor-grid,
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.button-pair .button {
+  flex: 1 1 120px;
+}
+
+.accessor-grid {
+  margin-bottom: 12px;
+}
+
+.accessor-grid .button {
+  flex: 1 1 130px;
+}
+
+.accessor-output {
+  display: block;
+  min-height: 46px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 800;
+}
+
+.tabs {
+  margin-bottom: 10px;
+}
+
+.tab {
+  padding: 7px 10px;
+}
+
+.tab.active {
+  background: #facc15;
+}
+
+.code-window,
+.status-output {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow: auto;
+  border: 2px solid #111827;
+  border-radius: 4px;
+  background: #070b12;
+  color: #d1fae5;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.code-window {
+  max-height: 560px;
+  padding: 14px;
+}
+
+.trace-list {
+  display: grid;
+  gap: 8px;
+  min-height: 170px;
+  margin: 0;
+  padding-left: 34px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.status-output {
+  width: 100%;
+  min-height: 170px;
+  margin-bottom: 12px;
+  padding: 14px;
+}
+
+@media (max-width: 1040px) {
+  .layout,
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@container (max-width: 560px) {
+  .snes-status-card {
+    padding: 9px;
+  }
+
+  .snes-card-body {
+    grid-template-columns: minmax(96px, 0.72fr) minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .sprite-frame {
+    width: min(100%, 150px);
+    margin: 0;
+  }
+
+  .hp-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .hp-row strong {
+    grid-column: 2;
+  }
+}
+
+@container (max-width: 390px) {
+  .snes-nameplate,
+  .snes-footer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5px;
+  }
+
+  .nameplate-class {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .sprite-frame {
+    width: min(100%, 118px);
+  }
+}
+
+@media (max-width: 620px) {
+  .app-shell {
+    width: min(100% - 18px, 1440px);
+    padding-top: 10px;
+  }
+
+  .hero {
+    padding: 14px;
+  }
+
+  .character-card,
+  .snes-card-body,
+  .control-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sprite-frame {
+    width: min(180px, 100%);
+    margin: 0 auto;
+  }
+
+}

@@ -27,7 +27,9 @@ jobs:
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: variable-game-tuner/package-lock.json
+          cache-dependency-path: |
+            variable-game-tuner/package-lock.json
+            character-class-lab/package-lock.json
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -40,11 +42,21 @@ jobs:
         working-directory: variable-game-tuner
         run: npm run build
 
+      - name: Install Character Class Lab dependencies
+        working-directory: character-class-lab
+        run: npm ci
+
+      - name: Build Character Class Lab
+        working-directory: character-class-lab
+        run: npm run build
+
       - name: Assemble Pages artifact
         run: |
           mkdir -p _site/variable-game-tuner
+          mkdir -p _site/character-class-lab
           cp index.html _site/index.html
           cp -R variable-game-tuner/dist/. _site/variable-game-tuner/
+          cp -R character-class-lab/dist/. _site/character-class-lab/
           touch _site/.nojekyll
 
       - name: Upload Pages artifact

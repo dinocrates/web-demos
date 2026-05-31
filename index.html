@@ -250,7 +250,49 @@
             </ul>
             <div class="button-row">
               <a class="button primary" href="./variable-game-tuner/">Open Demo</a>
-              <button class="button" type="button" id="show-embed">Canvas Embed Code</button>
+              <button
+                class="button"
+                type="button"
+                data-embed-title="Variable Game Tuner"
+                data-embed-url="./variable-game-tuner/"
+                data-embed-height="780"
+              >
+                Canvas Embed Code
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="demo-card">
+          <div class="titlebar">
+            <h2>Character Class Lab</h2>
+          </div>
+          <div class="card-body">
+            <p class="eyebrow">Level 2 C++</p>
+            <h3>Character Class Lab: Object State Screen</h3>
+            <p>
+              Students use the course Character class, call mutators and accessors, and watch a
+              SNES-style status screen update as private object state changes.
+            </p>
+            <ul class="tag-list" aria-label="Demo topics">
+              <li>Classes</li>
+              <li>Objects</li>
+              <li>Enums</li>
+              <li>Mutators</li>
+              <li>Accessors</li>
+              <li>Sprites</li>
+            </ul>
+            <div class="button-row">
+              <a class="button primary" href="./character-class-lab/">Open Demo</a>
+              <button
+                class="button"
+                type="button"
+                data-embed-title="Character Class Lab"
+                data-embed-url="./character-class-lab/"
+                data-embed-height="860"
+              >
+                Canvas Embed Code
+              </button>
             </div>
           </div>
         </article>
@@ -276,23 +318,27 @@
     <script>
       const dialog = document.querySelector("#embed-dialog");
       const embedCode = document.querySelector("#embed-code");
-      const showEmbed = document.querySelector("#show-embed");
+      const embedButtons = document.querySelectorAll("[data-embed-url]");
       const closeEmbed = document.querySelector("#close-embed");
       const copyEmbed = document.querySelector("#copy-embed");
 
-      function demoUrl() {
-        return new URL("./variable-game-tuner/", window.location.href).toString();
+      function demoUrl(path) {
+        return new URL(path, window.location.href).toString();
       }
 
-      function iframeCode() {
-        return `<iframe src="${demoUrl()}" title="Variable Game Tuner" width="100%" height="780" loading="lazy" style="border:0; max-width: 1200px;"></iframe>`;
+      function iframeCode(button) {
+        const title = button.dataset.embedTitle;
+        const height = button.dataset.embedHeight;
+        return `<iframe src="${demoUrl(button.dataset.embedUrl)}" title="${title}" width="100%" height="${height}" loading="lazy" style="border:0; max-width: 1200px;"></iframe>`;
       }
 
-      showEmbed.addEventListener("click", () => {
-        embedCode.value = iframeCode();
-        dialog.showModal();
-        embedCode.focus();
-        embedCode.select();
+      embedButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          embedCode.value = iframeCode(button);
+          dialog.showModal();
+          embedCode.focus();
+          embedCode.select();
+        });
       });
 
       closeEmbed.addEventListener("click", () => dialog.close());

@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.retro-editor-frame {
+  border: 1px solid rgb(51 65 85);
+  border-radius: 16px;
+  background: #050505;
+  box-shadow:
+    inset 2px 2px 0 rgba(148, 163, 184, 0.22),
+    inset -2px -2px 0 rgba(15, 23, 42, 0.9);
+}
+
+.code-editor-input::selection {
+  background: rgba(16, 185, 129, 0.35);
+  color: transparent;
+}
