@@ -1,11 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const characterTypes = ["Warrior", "Mage", "Rogue", "Unknown"];
-const previewGenders = ["Male", "Female"];
+const previewGenders = ["Male", "Female", "NonBinary"];
 const genderSymbols = {
-  Male: "♂",
-  Female: "♀",
+  Male: "\u2642",
+  Female: "\u2640",
+  NonBinary: "\u263f",
 };
+const skinTones = [
+  { id: "light", label: "Light", swatch: "#f2c59f" },
+  { id: "tan", label: "Tan", swatch: "#9b5a2e" },
+  { id: "dark", label: "Dark Brown", swatch: "#4a2415" },
+];
 
 const frameWidth = 256;
 const frameHeight = 256;
@@ -15,74 +21,262 @@ const openIdleFrames = [0, 2];
 const blinkFrame = 1;
 const minOpenFramesBetweenBlinks = 3;
 const randomExtraOpenFrames = 5;
-const spriteSheetPath = "./spritesheet.png";
-
-const spriteFrames = {
-  warrior: {
-    male: [
-      { x: 69, y: 29, width: 160, height: 212 },
-      { x: 283, y: 28, width: 160, height: 214 },
-      { x: 494, y: 28, width: 161, height: 214 },
-    ],
-    female: [
-      { x: 839, y: 25, width: 153, height: 216 },
-      { x: 1055, y: 26, width: 151, height: 215 },
-      { x: 1269, y: 25, width: 154, height: 216 },
-    ],
-  },
-  mage: {
-    male: [
-      { x: 53, y: 274, width: 174, height: 211 },
-      { x: 273, y: 274, width: 167, height: 211 },
-      { x: 486, y: 274, width: 167, height: 211 },
-    ],
-    female: [
-      { x: 821, y: 283, width: 171, height: 202 },
-      { x: 1039, y: 283, width: 168, height: 202 },
-      { x: 1255, y: 283, width: 167, height: 202 },
-    ],
-  },
-  rogue: {
-    male: [
-      { x: 80, y: 514, width: 165, height: 211 },
-      { x: 294, y: 515, width: 167, height: 211 },
-      { x: 508, y: 515, width: 164, height: 210 },
-    ],
-    female: [
-      { x: 847, y: 516, width: 161, height: 209 },
-      { x: 1063, y: 516, width: 161, height: 209 },
-      { x: 1278, y: 516, width: 160, height: 209 },
-    ],
-  },
-  unknown: {
-    male: [
-      { x: 80, y: 747, width: 137, height: 224 },
-      { x: 295, y: 747, width: 136, height: 224 },
-      { x: 509, y: 747, width: 134, height: 224 },
-    ],
-    female: [
-      { x: 856, y: 757, width: 118, height: 213 },
-      { x: 1072, y: 756, width: 118, height: 215 },
-      { x: 1288, y: 757, width: 117, height: 213 },
-    ],
-  },
+const classSpriteSheets = {
+  warrior: "./warriors-sprites.png",
+  mage: "./mage-sprites.png",
+  rogue: "./rogues-sprites.png",
+  unknown: "./unknowns-sprites.png",
 };
 
-const spriteAnimationBoxes = Object.fromEntries(
-  Object.entries(spriteFrames).map(([className, genderGroups]) => [
+function buildStableClassFrames() {
+  const columnCenters = [125, 340, 550, 850, 1050, 1260, 1540, 1754, 1974];
+  const genderStart = { male: 0, female: 3, nonbinary: 6 };
+  const rowSlots = {
+    light: { y: 0, height: 240 },
+    tan: { y: 240, height: 234 },
+    dark: { y: 474, height: 250 },
+  };
+  const slotWidth = 240;
+
+  return Object.fromEntries(
+    skinTones.map((skinTone) => [
+      skinTone.id,
+      Object.fromEntries(
+        Object.entries(genderStart).map(([gender, startIndex]) => [
+          gender,
+          [0, 1, 2].map((frameIndex) => ({
+            x: Math.round(columnCenters[startIndex + frameIndex] - slotWidth / 2),
+            y: rowSlots[skinTone.id].y,
+            width: slotWidth,
+            height: rowSlots[skinTone.id].height,
+          })),
+        ]),
+      ),
+    ]),
+  );
+}
+
+function buildMageSpriteFrames() {
+  const frames = buildStableClassFrames();
+  const mageRowCrop = {
+    light: { y: 23, height: 226 },
+    tan: { y: 265, height: 222 },
+    dark: { y: 494, height: 227 },
+  };
+  const mageMeasuredFrames = {
+    light: {
+      male: [
+        { x: 48, y: 25, width: 176, height: 215 },
+        { x: 244, y: 24, width: 192, height: 225 },
+        { x: 457, y: 25, width: 187, height: 224 },
+      ],
+      female: [
+        { x: 764, y: 24, width: 182, height: 225 },
+        { x: 964, y: 23, width: 188, height: 226 },
+        { x: 1171, y: 24, width: 182, height: 226 },
+      ],
+      nonbinary: [
+        { x: 1466, y: 26, width: 177, height: 223 },
+        { x: 1662, y: 25, width: 181, height: 223 },
+        { x: 1865, y: 25, width: 181, height: 223 },
+      ],
+    },
+    tan: {
+      male: [
+        { x: 46, y: 266, width: 179, height: 221 },
+        { x: 243, y: 266, width: 193, height: 221 },
+        { x: 457, y: 267, width: 187, height: 220 },
+      ],
+      female: [
+        { x: 765, y: 267, width: 181, height: 220 },
+        { x: 965, y: 266, width: 187, height: 221 },
+        { x: 1172, y: 267, width: 181, height: 220 },
+      ],
+      nonbinary: [
+        { x: 1466, y: 266, width: 177, height: 220 },
+        { x: 1663, y: 265, width: 179, height: 221 },
+        { x: 1866, y: 266, width: 180, height: 220 },
+      ],
+    },
+    dark: {
+      male: [
+        { x: 24, y: 549, width: 220, height: 170 },
+        { x: 230, y: 502, width: 220, height: 218 },
+        { x: 452, y: 549, width: 220, height: 171 },
+      ],
+      female: [
+        { x: 765, y: 502, width: 181, height: 217 },
+        { x: 966, y: 502, width: 186, height: 217 },
+        { x: 1172, y: 503, width: 181, height: 216 },
+      ],
+      nonbinary: [
+        { x: 1466, y: 495, width: 183, height: 224 },
+        { x: 1663, y: 494, width: 185, height: 225 },
+        { x: 1866, y: 495, width: 189, height: 224 },
+      ],
+    },
+  };
+
+  for (const [skinTone, genderGroups] of Object.entries(mageMeasuredFrames)) {
+    for (const [gender, measuredFrames] of Object.entries(genderGroups)) {
+      frames[skinTone][gender] = measuredFrames.map((frame) => ({
+        ...frame,
+        y: mageRowCrop[skinTone].y,
+        height: mageRowCrop[skinTone].height,
+      }));
+    }
+  }
+
+  return frames;
+}
+
+function buildRogueSpriteFrames() {
+  const rogueRowCrop = {
+    light: { y: 18, height: 228 },
+    tan: { y: 257, height: 227 },
+    dark: { y: 492, height: 227 },
+  };
+  const slotWidth = 210;
+  const centers = {
+    male: [134, 347, 558],
+    female: [850, 1066, 1285],
+    nonbinary: {
+      light: [1580, 1794, 2005],
+      tan: [1580, 1794, 2005],
+      dark: [1580, 1794, 2005],
+    },
+  };
+
+  return Object.fromEntries(
+    skinTones.map((skinTone) => [
+      skinTone.id,
+      Object.fromEntries(
+        ["male", "female", "nonbinary"].map((gender) => {
+          const frameCenters = gender === "nonbinary" ? centers.nonbinary[skinTone.id] : centers[gender];
+
+          return [
+            gender,
+            frameCenters.map((centerX) => ({
+              x: Math.round(centerX - slotWidth / 2),
+              y: rogueRowCrop[skinTone.id].y,
+              width: slotWidth,
+              height: rogueRowCrop[skinTone.id].height,
+            })),
+          ];
+        }),
+      ),
+    ]),
+  );
+}
+
+function buildUnknownSpriteFrames() {
+  const unknownRowCrop = {
+    light: { y: 22, height: 218 },
+    tan: { y: 240, height: 234 },
+    dark: { y: 474, height: 236 },
+  };
+  const slotWidth = 160;
+  const centers = {
+    male: [141, 339, 538],
+    female: [843, 1043, 1243],
+    nonbinary: [1565, 1765, 1972],
+  };
+
+  return Object.fromEntries(
+    skinTones.map((skinTone) => [
+      skinTone.id,
+      Object.fromEntries(
+        Object.entries(centers).map(([gender, frameCenters]) => [
+          gender,
+          frameCenters.map((centerX) => ({
+            x: Math.round(centerX - slotWidth / 2),
+            y: unknownRowCrop[skinTone.id].y,
+            width: slotWidth,
+            height: unknownRowCrop[skinTone.id].height,
+          })),
+        ]),
+      ),
+    ]),
+  );
+}
+
+const classSpriteFrames = {
+  warrior: {
+    light: {
+      male: [
+        { x: 44, y: 12, width: 158, height: 221 },
+        { x: 251, y: 12, width: 158, height: 221 },
+        { x: 456, y: 12, width: 157, height: 221 },
+      ],
+      female: [
+        { x: 748, y: 14, width: 158, height: 218 },
+        { x: 970, y: 13, width: 157, height: 219 },
+        { x: 1191, y: 14, width: 153, height: 218 },
+      ],
+      nonbinary: [
+        { x: 1487, y: 18, width: 154, height: 214 },
+        { x: 1711, y: 18, width: 153, height: 214 },
+        { x: 1934, y: 18, width: 152, height: 214 },
+      ],
+    },
+    tan: {
+      male: [
+        { x: 44, y: 245, width: 158, height: 221 },
+        { x: 251, y: 244, width: 158, height: 222 },
+        { x: 456, y: 245, width: 157, height: 221 },
+      ],
+      female: [
+        { x: 747, y: 247, width: 158, height: 219 },
+        { x: 968, y: 247, width: 157, height: 219 },
+        { x: 1187, y: 247, width: 156, height: 219 },
+      ],
+      nonbinary: [
+        { x: 1488, y: 252, width: 153, height: 214 },
+        { x: 1711, y: 252, width: 152, height: 214 },
+        { x: 1934, y: 252, width: 151, height: 214 },
+      ],
+    },
+    dark: {
+      male: [
+        { x: 44, y: 480, width: 158, height: 224 },
+        { x: 251, y: 479, width: 158, height: 225 },
+        { x: 456, y: 480, width: 157, height: 224 },
+      ],
+      female: [
+        { x: 748, y: 491, width: 158, height: 213 },
+        { x: 960, y: 482, width: 167, height: 221 },
+        { x: 1185, y: 482, width: 160, height: 222 },
+      ],
+      nonbinary: [
+        { x: 1486, y: 491, width: 155, height: 213 },
+        { x: 1708, y: 491, width: 156, height: 212 },
+        { x: 1932, y: 480, width: 155, height: 224 },
+      ],
+    },
+  },
+  mage: buildMageSpriteFrames(),
+  rogue: buildRogueSpriteFrames(),
+  unknown: buildUnknownSpriteFrames(),
+};
+const classAnimationBoxes = Object.fromEntries(
+  Object.entries(classSpriteFrames).map(([className, skinToneGroups]) => [
     className,
     Object.fromEntries(
-      Object.entries(genderGroups).map(([gender, frames]) => [
-        gender,
-        {
-          width: Math.max(...frames.map((frame) => frame.width)),
-          height: Math.max(...frames.map((frame) => frame.height)),
-        },
+      Object.entries(skinToneGroups).map(([skinTone, genderGroups]) => [
+        skinTone,
+        Object.fromEntries(
+          Object.entries(genderGroups).map(([gender, frames]) => [
+            gender,
+            {
+              width: Math.max(...frames.map((frame) => frame.width)),
+              height: Math.max(...frames.map((frame) => frame.height)),
+            },
+          ]),
+        ),
       ]),
     ),
   ]),
 );
-
 const typeDetails = {
   Warrior: {
     accent: "#dc4545",
@@ -271,9 +465,9 @@ function nextBlinkDelay() {
   return minOpenFramesBetweenBlinks + Math.floor(Math.random() * (randomExtraOpenFrames + 1));
 }
 
-function CharacterSpritePreview({ selectedClass, gender }) {
+function CharacterSpritePreview({ selectedClass, gender, skinTone }) {
   const canvasRef = useRef(null);
-  const imageRef = useRef(null);
+  const imageRefs = useRef({});
   const animationRef = useRef(null);
   const currentFrameRef = useRef(0);
   const lastFrameTimeRef = useRef(0);
@@ -281,20 +475,26 @@ function CharacterSpritePreview({ selectedClass, gender }) {
   const openFramesUntilBlinkRef = useRef(minOpenFramesBetweenBlinks);
 
   useEffect(() => {
-    const spriteSheet = new Image();
-    spriteSheet.src = spriteSheetPath;
-    imageRef.current = spriteSheet;
+    imageRefs.current = Object.fromEntries(
+      Object.entries(classSpriteSheets).map(([className, path]) => {
+        const image = new Image();
+        image.src = path;
+        return [className, image];
+      }),
+    );
 
     return () => {
-      imageRef.current = null;
+      imageRefs.current = {};
     };
   }, []);
 
   useEffect(() => {
     const draw = (time) => {
       const canvas = canvasRef.current;
-      const spriteSheet = imageRef.current;
       const ctx = canvas?.getContext("2d");
+      const classKey = selectedClass.toLowerCase();
+      const genderKey = gender.toLowerCase();
+      const spriteSheet = imageRefs.current[classKey];
 
       if (!canvas || !ctx || !spriteSheet?.complete) {
         animationRef.current = requestAnimationFrame(draw);
@@ -313,11 +513,9 @@ function CharacterSpritePreview({ selectedClass, gender }) {
         lastFrameTimeRef.current = time;
       }
 
-      const classKey = selectedClass.toLowerCase();
-      const genderKey = gender.toLowerCase();
-
-      const measuredFrame = spriteFrames[classKey][genderKey][currentFrameRef.current];
-      const animationBox = spriteAnimationBoxes[classKey][genderKey];
+      const frameSet = classSpriteFrames[classKey][skinTone][genderKey];
+      const animationBox = classAnimationBoxes[classKey][skinTone][genderKey];
+      const measuredFrame = frameSet[currentFrameRef.current];
       const drawWidth = measuredFrame.width * previewScale;
       const drawHeight = measuredFrame.height * previewScale;
       const animationBoxWidth = animationBox.width * previewScale;
@@ -351,7 +549,7 @@ function CharacterSpritePreview({ selectedClass, gender }) {
 
     animationRef.current = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(animationRef.current);
-  }, [gender, selectedClass]);
+  }, [gender, selectedClass, skinTone]);
 
   return (
     <canvas
@@ -370,6 +568,7 @@ export default function App() {
   const [draftType, setDraftType] = useState("Warrior");
   const [previewClass, setPreviewClass] = useState("Warrior");
   const [previewGender, setPreviewGender] = useState("Male");
+  const [previewSkinTone, setPreviewSkinTone] = useState("light");
   const [amount, setAmount] = useState(35);
   const [activeFile, setActiveFile] = useState("Character.h");
   const [trace, setTrace] = useState([
@@ -497,6 +696,7 @@ export default function App() {
     setDraftType("Warrior");
     setPreviewClass("Warrior");
     setPreviewGender("Male");
+    setPreviewSkinTone("light");
     setAmount(35);
     setAccessorResult("Click an accessor to see the returned value.");
     setTrace(["Character hero; created one object from the Character class.", "The object is back to its defaults."]);
@@ -527,8 +727,28 @@ export default function App() {
 
               <div className="snes-card-body">
                 <div className="sprite-column">
-                  <div className="sprite-frame">
-                    <CharacterSpritePreview selectedClass={previewClass} gender={previewGender} />
+                  <div className="sprite-picker-row">
+                    <div className="skin-tone-toggle" aria-label="Warrior skin tone">
+                      {skinTones.map((skinTone) => (
+                        <button
+                          aria-label={skinTone.label}
+                          aria-pressed={previewSkinTone === skinTone.id}
+                          className={previewSkinTone === skinTone.id ? "swatch-button active" : "swatch-button"}
+                          key={skinTone.id}
+                          style={{ "--swatch": skinTone.swatch }}
+                          title={skinTone.label}
+                          type="button"
+                          onClick={() => setPreviewSkinTone(skinTone.id)}
+                        />
+                      ))}
+                    </div>
+                    <div className="sprite-frame">
+                      <CharacterSpritePreview
+                        gender={previewGender}
+                        selectedClass={previewClass}
+                        skinTone={previewSkinTone}
+                      />
+                    </div>
                   </div>
                   <div className="gender-toggle" aria-label="Sprite gender">
                     {previewGenders.map((gender) => (
@@ -663,3 +883,8 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
+

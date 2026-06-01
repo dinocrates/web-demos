@@ -182,6 +182,14 @@ select {
   justify-items: center;
 }
 
+.sprite-picker-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
 .sprite-frame {
   display: flex;
   width: min(256px, 100%);
@@ -222,9 +230,9 @@ select {
 
 .gender-toggle {
   display: grid;
-  grid-template-columns: repeat(2, minmax(40px, 1fr));
+  grid-template-columns: repeat(3, minmax(34px, 1fr));
   gap: 8px;
-  width: min(100%, 136px);
+  width: min(100%, 154px);
 }
 
 .symbol-button {
@@ -243,6 +251,35 @@ select {
 .symbol-button.active {
   background: #facc15;
   color: #06132d;
+}
+
+.skin-tone-toggle {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  width: 34px;
+}
+
+.swatch-button {
+  aspect-ratio: 1;
+  min-height: 28px;
+  border: 3px solid #e0f2fe;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 48%),
+    var(--swatch);
+  cursor: pointer;
+  box-shadow:
+    inset 0 0 0 2px #06132d,
+    2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.swatch-button:hover,
+.swatch-button.active {
+  border-color: #facc15;
+  box-shadow:
+    inset 0 0 0 2px #06132d,
+    0 0 0 2px #facc15,
+    2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
 .menu-label {
