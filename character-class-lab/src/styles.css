@@ -190,6 +190,13 @@ select {
   width: 100%;
 }
 
+.sprite-stage {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  min-width: 0;
+}
+
 .sprite-frame {
   display: flex;
   width: min(256px, 100%);

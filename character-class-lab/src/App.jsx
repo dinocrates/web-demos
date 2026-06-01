@@ -742,27 +742,29 @@ export default function App() {
                         />
                       ))}
                     </div>
-                    <div className="sprite-frame">
-                      <CharacterSpritePreview
-                        gender={previewGender}
-                        selectedClass={previewClass}
-                        skinTone={previewSkinTone}
-                      />
+                    <div className="sprite-stage">
+                      <div className="sprite-frame">
+                        <CharacterSpritePreview
+                          gender={previewGender}
+                          selectedClass={previewClass}
+                          skinTone={previewSkinTone}
+                        />
+                      </div>
+                      <div className="gender-toggle" aria-label="Sprite gender">
+                        {previewGenders.map((gender) => (
+                          <button
+                            aria-pressed={previewGender === gender}
+                            className={previewGender === gender ? "symbol-button active" : "symbol-button"}
+                            key={gender}
+                            title={gender}
+                            type="button"
+                            onClick={() => setPreviewGender(gender)}
+                          >
+                            {genderSymbols[gender]}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  <div className="gender-toggle" aria-label="Sprite gender">
-                    {previewGenders.map((gender) => (
-                      <button
-                        aria-pressed={previewGender === gender}
-                        className={previewGender === gender ? "symbol-button active" : "symbol-button"}
-                        key={gender}
-                        title={gender}
-                        type="button"
-                        onClick={() => setPreviewGender(gender)}
-                      >
-                        {genderSymbols[gender]}
-                      </button>
-                    ))}
                   </div>
                 </div>
 
