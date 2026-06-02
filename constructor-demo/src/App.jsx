@@ -875,10 +875,15 @@ export default function App() {
               style={{
                 "--map-width": mapWidth,
                 "--map-height": mapHeight,
-                "--map-background": `url("${import.meta.env.BASE_URL}backgrounds/background-constructor.png")`,
               }}
               onClick={() => setMessage("Click a character square, not an empty tile.")}
             >
+              <img
+                alt=""
+                aria-hidden="true"
+                className="map-background-image"
+                src={`${import.meta.env.BASE_URL}backgrounds/background-constructor.png`}
+              />
               {Array.from({ length: mapWidth * mapHeight }, (_, index) => (
                 <div className="map-tile" key={index} />
               ))}

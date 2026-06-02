@@ -690,19 +690,29 @@ dd {
   background:
     linear-gradient(90deg, rgba(224, 242, 254, 0.22) 1px, transparent 1px),
     linear-gradient(rgba(224, 242, 254, 0.22) 1px, transparent 1px),
-    var(--map-background) center / cover no-repeat,
     #23324a;
   background-size:
     calc(100% / var(--map-width)) 100%,
     100% calc(100% / var(--map-height)),
-    cover,
     auto;
   box-shadow:
     inset 0 0 0 3px #e0f2fe,
     4px 4px 0 rgba(17, 24, 39, 0.35);
 }
 
+.map-background-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
 .map-tile {
+  position: relative;
+  z-index: 1;
   aspect-ratio: 1;
   background: transparent;
 }
@@ -710,6 +720,7 @@ dd {
 .character-layer {
   position: absolute;
   inset: 0;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(var(--map-width), 1fr);
   grid-template-rows: repeat(var(--map-height), 1fr);
