@@ -22,10 +22,10 @@ const blinkFrame = 1;
 const minOpenFramesBetweenBlinks = 3;
 const randomExtraOpenFrames = 5;
 const classSpriteSheets = {
-  warrior: "./warriors-sprites.png",
-  mage: "./mage-sprites.png",
-  rogue: "./rogues-sprites.png",
-  unknown: "./unknowns-sprites.png",
+  warrior: `${import.meta.env.BASE_URL}spritesheets/warriors-sprites.png`,
+  mage: `${import.meta.env.BASE_URL}spritesheets/mage-sprites.png`,
+  rogue: `${import.meta.env.BASE_URL}spritesheets/rogues-sprites.png`,
+  unknown: `${import.meta.env.BASE_URL}spritesheets/unknowns-sprites.png`,
 };
 
 function buildStableClassFrames() {
